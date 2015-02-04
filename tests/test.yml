@@ -1,0 +1,15 @@
+---
+- hosts: all
+  gather_facts: yes
+
+  pre_tasks:
+    - apt: update_cache=yes
+    - apt: name=python-pip
+    - user: "name=pi"
+    - apt: name=lightdm
+    - apt: name=lxde-common
+
+  roles:
+    - ansible-role-display
+
+  post_tasks:

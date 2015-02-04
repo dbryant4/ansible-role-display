@@ -1,0 +1,23 @@
+---
+
+- name: setting user pi to auto-login
+  replace: 'dest=/etc/lightdm/lightdm.conf  regexp="^#autologin-user=.*" replace="autologin-user=pi"'
+
+- file: path=/home/pi/.vnc owner=pi group=pi state=directory mode=0755
+
+- name: creating vnc password file
+  command: "x11vnc -storepasswd {{ display_vnc_password }} /home/pi/.vnc/passwd creates=/home/pi/.vnc/passwd"
+
+- name: ensure vnc passwd file ownership and mode
+  file: path=/home/pi/.vnc/passwd owner=pi group=pi mode=0600
+
+- file: path=/home/pi/.config/autostart owner=pi group=pi state=directory mode=0755
+
+- name: autostarting vnc server
+  copy: src=x11vnc.desktop dest=/home/pi/.config/autostart/x11vnc.desktop owner=pi group=pi
+
+- name: setting chromium to autostart
+  template: src=autostart.j2 dest=/etc/xdg/lxsession/LXDE/autostart mode=644 owner=root group=root
+
+- name: install boot config
+  template: src=boot_config.j2 dest=/boot/config.txt

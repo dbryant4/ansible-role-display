@@ -1,0 +1,5 @@
+---
+display_rotate_display: false
+display_vnc_password: "mypassword"
+display_chromium_urls:
+  - "http://dashboard.derricklbryant.com/transitbloomingdale?page=1"

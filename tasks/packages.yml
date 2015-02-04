@@ -1,0 +1,9 @@
+---
+
+- name: install chromium and friends
+  apt: "pkg={{ item }} state=latest"
+  with_items:
+    - 'chromium-browser'
+    - 'x11-xserver-utils'
+    - 'unclutter'
+    - 'x11vnc'
